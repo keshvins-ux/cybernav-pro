@@ -40,17 +40,9 @@ const COMPLIANCE_MODULES = [
       { id:"pdpa_9",code:"P.9",name:"Third Party & Data Processing Agreements",desc:"Data processing agreements in place with all vendors processing personal data, per PDPA Section 9(2) and PDPS Security Standard 4(14). Third party integrations assessed for data protection risks.",weight:2 },
       { id:"pdpa_10",code:"P.10",name:"Incident & Breach Management",desc:"Cyber incident response capability manages and minimises damage per GTRM Guideline 9.15 and 9.17. Recovery plan includes communication and escalation procedures per GTRM 9.16.",weight:3 },
     ]},
-  { id:"sc-gtrm", name:"SC GTRM", full:"SC Guidelines on Technology Risk Management", flag:"🇲🇾", icon:"📈", color:"#7C3AED", regulator:"Securities Commission Malaysia",
-    desc:"Securities Commission guidelines for technology risk management in capital markets. Toolkit pending — using reference requirements.",
-    requirements:[
-      { id:"gtrm_1",code:"G.1",name:"Technology Risk Governance",desc:"Board-approved Technology Risk Management policy with named accountable executive and clear escalation path to Board.",weight:3 },
-      { id:"gtrm_2",code:"G.2",name:"Technology Risk Assessment",desc:"Regular technology risk assessments with documented risk register, risk owners, and time-bound treatment plans reviewed by senior management.",weight:3 },
-      { id:"gtrm_3",code:"G.3",name:"System Resilience & Recovery",desc:"Documented and tested RTO/RPO for all critical systems; annual recovery test results reviewed and approved by Board.",weight:3 },
-      { id:"gtrm_4",code:"G.4",name:"Cyber Threat Management",desc:"Threat intelligence programme in place; documented and exercised cyber incident response plan covering all major threat scenarios.",weight:3 },
-      { id:"gtrm_5",code:"G.5",name:"Third Party Technology Risk",desc:"Technology risk assessments conducted on all critical technology service providers at onboarding and annually.",weight:2 },
-      { id:"gtrm_6",code:"G.6",name:"Change Management",desc:"Formal change management process for all technology changes with impact assessment, testing, and approval gates.",weight:2 },
-      { id:"gtrm_7",code:"G.7",name:"Technology Audit",desc:"Annual independent technology audit conducted by qualified internal or external auditor; findings tracked to closure.",weight:2 },
-    ]},
+  { id:"sc-gtrm", name:"SC GTRM", full:"SC Guidelines on Cyber Security (SC-GL/2-2016)", flag:"🇲🇾", icon:"📈", color:"#7C3AED", regulator:"Securities Commission Malaysia", questionnaire:true,
+    desc:"Self-audit questionnaire based on SC-GL/2-2016 covering Board governance (Part B) and operational controls across prevention, detection and recovery (Part C). Upload evidence documents per control for AI-assisted compliance assessment with downloadable PDF report.",
+    requirements:[]},
   { id:"nacsa-cop", name:"NACSA COP", full:"NACSA CS Baseline — Code of Practice for CNII", flag:"🇲🇾", icon:"🏛️", color:"#059669", regulator:"NACSA",
     desc:"National Cyber Security Agency CS Baseline Assessment covering 15 categories across Govern, Identify, Protect, Detect, Respond and Recover for CNII operators.",
     requirements:[
@@ -96,6 +88,271 @@ const COMPLIANCE_MODULES = [
       { id:"iesp_10",code:"PC-BCM01",name:"Business Continuity Management",desc:"Disaster Recovery Plan documented, implemented and maintained. Component testing conducted. DR criteria defined with RTO/RPO. Recovery capability validated through testing.",weight:3 },
     ]},
 ];
+
+// ── GTRM QUESTIONNAIRE MODULE ──────────────────────────────────────
+const GTRM_CONTROLS = [
+  { id:"gb1", code:"G.B.1", part:"Part B — Governance", criticality:"critical",
+    name:"Board Oversight & Policy Approval", section:"§3.1, §3.2(a)(b)",
+    evidenceHint:"Board minutes with cyber risk agenda item; Board-approved cyber risk policy document",
+    questions:[
+      { id:"gb1_q1", text:"Has the Board reviewed and formally approved the organisation's cyber risk policies and procedures?" },
+      { id:"gb1_q2", text:"Are the Board-approved cyber risk policies and procedures being actively implemented by management?" },
+    ]},
+  { id:"gb2", code:"G.B.2", part:"Part B — Governance", criticality:"critical",
+    name:"Board Monitoring & Periodic Review", section:"§3.2(c)",
+    evidenceHint:"Board committee cyber reports; KPI dashboards; policy review records with Board sign-off",
+    questions:[
+      { id:"gb2_q1", text:"Does the Board monitor the effectiveness of cyber risk policy implementation?" },
+      { id:"gb2_q2", text:"Are cyber risk policies and procedures periodically reviewed and improved where required?" },
+      { id:"gb2_q3", text:"Are performance metrics or indicators set to assess the effectiveness of cyber policies?" },
+    ]},
+  { id:"gb3", code:"G.B.3", part:"Part B — Governance", criticality:"critical",
+    name:"Cyber Risk Resources & Responsible Person", section:"§3.2(d)",
+    evidenceHint:"Organisation chart; job description of responsible person; budget allocation for cyber risk",
+    questions:[
+      { id:"gb3_q1", text:"Has adequate budget and resources been allocated to manage cyber risk?" },
+      { id:"gb3_q2", text:"Has a named responsible person been identified who is accountable for the effective management of cyber risk?" },
+    ]},
+  { id:"gb4", code:"G.B.4", part:"Part B — Governance", criticality:"high",
+    name:"Cyber Awareness & Training Programme", section:"§3.2(e), §4.9, §4.10",
+    evidenceHint:"Cyber awareness programme documentation; training completion records; training effectiveness evaluation",
+    questions:[
+      { id:"gb4_q1", text:"Does the Board promote cyber resilience awareness at all levels within the entity?" },
+      { id:"gb4_q2", text:"Do the Board, management, employees and agents undergo regular cyber risk training?" },
+      { id:"gb4_q3", text:"Is the effectiveness of training programmes evaluated to ensure adequate preparedness?" },
+    ]},
+  { id:"gb5", code:"G.B.5", part:"Part B — Governance", criticality:"medium",
+    name:"New Activities & Emerging Threat Awareness", section:"§3.2(f)(g)",
+    evidenceHint:"Risk assessments for new projects/technology/outsourcing; Board briefings on emerging threats",
+    questions:[
+      { id:"gb5_q1", text:"Is the impact of cyber risk formally assessed when undertaking new activities such as investments, M&A, new technology adoption or outsourcing?" },
+      { id:"gb5_q2", text:"Does the Board keep itself updated and aware of new and emerging cyber threats and their potential impact?" },
+    ]},
+  { id:"gb6", code:"G.B.6", part:"Part B — Governance", criticality:"high",
+    name:"Management Cyber Risk Responsibilities", section:"§3.3",
+    evidenceHint:"Cyber risk management framework; staff/third-party awareness communication records; Board breach reports",
+    questions:[
+      { id:"gb6_q1", text:"Has management established cyber risk policies commensurate with the entity's risk profile, data sensitivity, and operating environment?" },
+      { id:"gb6_q2", text:"Are employees, agents and third-party service providers made aware of and do they understand the cyber risk policies and their roles?" },
+      { id:"gb6_q3", text:"Does management report any cyber breaches to the Board and provide periodic updates on emerging threats?" },
+    ]},
+  { id:"gc1", code:"G.C.1", part:"Part C — Policies & Procedures", criticality:"critical",
+    name:"Cyber Risk Policy Comprehensiveness", section:"§4.1, §4.2",
+    evidenceHint:"Cyber risk policy document; procedures manual; risk tolerance statements",
+    questions:[
+      { id:"gc1_q1", text:"Does the cyber risk policy define the entity's risk tolerance (e.g. breach severity, maximum downtime, RTO, minimum service availability)?" },
+      { id:"gc1_q2", text:"Does the policy include a strategy encompassing prevention, detection and recovery from cyber breaches?" },
+      { id:"gc1_q3", text:"Does the policy define roles, responsibilities and lines of accountability across Board, management and key personnel?" },
+      { id:"gc1_q4", text:"Does the policy include processes for identification, detection, assessment, prioritisation, containment, response and escalation of cyber breaches?" },
+      { id:"gc1_q5", text:"Does the policy cover third-party and outsourcing management, including requirements for providers to comply with the information security policy?" },
+      { id:"gc1_q6", text:"Does the policy include communication procedures for cyber breaches covering reporting procedures, stakeholder lists, channels and timelines?" },
+    ]},
+  { id:"gc2", code:"G.C.2", part:"Part C — Prevention", criticality:"critical",
+    name:"Vulnerability Assessment Programme", section:"§4.5, §4.6",
+    evidenceHint:"Vulnerability assessment reports; penetration test reports; risk assessment methodology documentation",
+    questions:[
+      { id:"gc2_q1", text:"Does the entity conduct regular vulnerability assessments to identify potential vulnerabilities and cyber threats?" },
+      { id:"gc2_q2", text:"Are assessments comprehensive, covering personnel, third parties, systems/technologies, business processes and outsourcing arrangements?" },
+    ]},
+  { id:"gc3", code:"G.C.3", part:"Part C — Prevention", criticality:"critical",
+    name:"Preventive Technical Controls", section:"§4.7, §4.8",
+    evidenceHint:"Security tools inventory; firewall architecture diagrams; penetration test reports; access/authority matrix",
+    questions:[
+      { id:"gc3_q1", text:"Is anti-virus and malware software deployed to detect and isolate malicious code?" },
+      { id:"gc3_q2", text:"Are firewalls built to reduce weak points and prevent unauthorised access to the network?" },
+      { id:"gc3_q3", text:"Is penetration testing of existing systems and networks conducted regularly?" },
+      { id:"gc3_q4", text:"Is an authority matrix in place to limit privileged internal and external access rights to systems and data?" },
+      { id:"gc3_q5", text:"Are systems and system components layered to minimise the entity's exposure to cyber threats?" },
+    ]},
+  { id:"gc4", code:"G.C.4", part:"Part C — Detection", criticality:"critical",
+    name:"Continuous Monitoring & Timely Detection", section:"§4.11, §4.12",
+    evidenceHint:"SIEM/monitoring system evidence; SOC SLA reports; escalation and incident response procedures",
+    questions:[
+      { id:"gc4_q1", text:"Is continuous monitoring in place for cyber incidents and breaches within systems and network?" },
+      { id:"gc4_q2", text:"Are there clearly defined escalation and decision-making processes to ensure timely detection and response?" },
+    ]},
+  { id:"gc5", code:"G.C.5", part:"Part C — Detection", criticality:"high",
+    name:"Cyber Incident Scenarios & Response Planning", section:"§4.13, §4.14, §4.15",
+    evidenceHint:"Cyber incident response plan; risk scenario register; tabletop/simulation exercise results",
+    questions:[
+      { id:"gc5_q1", text:"Has the entity identified specific cyber risk scenarios it is most likely to be exposed to, including capital market and financial industry incidents?" },
+      { id:"gc5_q2", text:"Are documented response plans and communication strategies developed for each identified scenario?" },
+      { id:"gc5_q3", text:"Are cyber risk scenarios and response plans regularly tested, reviewed and updated?" },
+      { id:"gc5_q4", text:"Is there a defined incident response team with clear escalation paths to management and Board, aligned to BCP and crisis management plan?" },
+    ]},
+  { id:"gc6", code:"G.C.6", part:"Part C — Detection", criticality:"critical",
+    name:"SC Cyber Incident Reporting", section:"§4.16",
+    evidenceHint:"SC incident reporting procedure; Appendix 1 template; cyberreporting@seccom.com.my contact confirmed",
+    questions:[
+      { id:"gc6_q1", text:"Is there a documented procedure to report cyber incidents to the Securities Commission Malaysia on the day of occurrence?" },
+      { id:"gc6_q2", text:"Does the procedure reference and use the SC Appendix 1 Cyber Incident Reporting Template (cyberreporting@seccom.com.my)?" },
+    ]},
+  { id:"gc7", code:"G.C.7", part:"Part C — Recovery", criticality:"critical",
+    name:"Critical Systems Recovery & RTO", section:"§4.17, §4.18",
+    evidenceHint:"RTO definitions per system; BCP/DRP documentation; recovery test results",
+    questions:[
+      { id:"gc7_q1", text:"Are all critical systems able to recover from a cyber breach within the entity's defined Recovery Time Objective (RTO)?" },
+      { id:"gc7_q2", text:"Have critical systems been identified and prioritised for recovery to maintain minimum services during downtime?" },
+      { id:"gc7_q3", text:"Is the minimum level of service during downtime documented and agreed by Board/management?" },
+    ]},
+  { id:"gc8", code:"G.C.8", part:"Part C — Recovery", criticality:"critical",
+    name:"Business Continuity Plan (Cyber)", section:"§4.19",
+    evidenceHint:"Business Continuity Plan document; cyber-specific recovery plan; BCP test/simulation results",
+    questions:[
+      { id:"gc8_q1", text:"Is a comprehensive BCP in place that specifically covers cyber breach scenarios?" },
+      { id:"gc8_q2", text:"Does the BCP include a detailed recovery plan for systems, operations and services arising from a cyber breach?" },
+    ]},
+];
+
+const GTRM_CRIT_WEIGHT = { critical:3, high:2, medium:1 };
+const GTRM_CRIT_COLOR  = { critical:"#DC2626", high:"#D97706", medium:"#16A34A" };
+
+function computeGtrmCompliance(control, resp){
+  const answers=(resp?.answers)||{};
+  const vals=control.questions.map(q=>answers[q.id]).filter(Boolean);
+  if(!vals.length) return null;
+  if(vals.some(v=>v==="no")) return "not_met";
+  if(vals.some(v=>v==="partial")) return "partial";
+  return "met";
+}
+function getGtrmCompliance(control, resp){
+  return resp?.override || computeGtrmCompliance(control, resp);
+}
+function gtrmOverallScore(gtrmResp){
+  let total=0, score=0;
+  GTRM_CONTROLS.forEach(c=>{
+    const w=GTRM_CRIT_WEIGHT[c.criticality]; total+=w;
+    const s=getGtrmCompliance(c, gtrmResp[c.id]);
+    if(s==="met") score+=w; else if(s==="partial") score+=w*0.5;
+  });
+  return total ? Math.round((score/total)*100) : 0;
+}
+function simulateGtrmDocParse(fileName){
+  const lc=fileName.toLowerCase();
+  const isPolicy=/(policy|procedure|framework|guideline|manual|charter|approval|board|minute|governance|strategy)/.test(lc);
+  const isReport=/(report|log|evidence|test|result|review|audit|assessment|plan|schedule|record)/.test(lc);
+  if(isPolicy) return{status:"met",confidence:"medium",note:"Policy/governance document detected. AI suggests Comply — verify manually."};
+  if(isReport) return{status:"partial",confidence:"low",note:"Report/evidence document detected. AI suggests Partial — verify manually."};
+  return{status:"partial",confidence:"low",note:`Demo simulation for "${fileName}". Full AI document analysis available in hosted version.`};
+}
+function generateGtrmReport(profile, gtrmResp){
+  const score=gtrmOverallScore(gtrmResp);
+  const date=new Date().toLocaleDateString("en-MY",{day:"2-digit",month:"long",year:"numeric"});
+  const controls=GTRM_CONTROLS.map(c=>({...c,status:getGtrmCompliance(c,gtrmResp[c.id]),resp:gtrmResp[c.id]||{}}));
+  const metCount=controls.filter(c=>c.status==="met").length;
+  const partCount=controls.filter(c=>c.status==="partial").length;
+  const notMetCount=controls.filter(c=>c.status==="not_met").length;
+  const gaps=controls.filter(c=>c.status==="not_met"||c.status==="partial").sort((a,b)=>GTRM_CRIT_WEIGHT[b.criticality]-GTRM_CRIT_WEIGHT[a.criticality]);
+  const scoreColor=score>=80?"#16A34A":score>=60?"#D97706":"#DC2626";
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>SC GTRM Compliance Report — ${profile.orgName}</title>
+<style>
+  *{box-sizing:border-box;}
+  body{font-family:Arial,sans-serif;margin:0;color:#111827;background:#fff;font-size:13px;}
+  .cover{background:linear-gradient(135deg,#4C1D95,#7C3AED);color:white;padding:56px 48px;}
+  .cover h1{font-size:26px;margin:0 0 6px;font-weight:bold;}
+  .cover .sub{opacity:.75;font-size:12px;margin:0 0 28px;}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px;}
+  .meta-label{opacity:.65;font-size:10px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;}
+  .meta-val{font-size:14px;font-weight:600;}
+  .section{padding:28px 48px;border-bottom:1px solid #E5E7EB;}
+  h2{font-size:14px;color:#374151;border-left:4px solid #7C3AED;padding-left:10px;margin:0 0 14px;}
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  .kpi{background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:14px;}
+  .kpi .val{font-size:24px;font-weight:bold;margin:4px 0 2px;}
+  .kpi .lbl{font-size:10px;color:#6B7280;}
+  .kpi .sub{font-size:10px;color:#9CA3AF;margin-top:2px;}
+  table{width:100%;border-collapse:collapse;font-size:11px;}
+  th{background:#F3F4F6;padding:7px 10px;text-align:left;font-size:10px;color:#374151;border-bottom:2px solid #E5E7EB;font-weight:600;}
+  td{padding:7px 10px;border-bottom:1px solid #F3F4F6;vertical-align:top;}
+  .badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:9px;font-weight:600;}
+  .b-met{background:#DCFCE7;color:#16A34A;}
+  .b-partial{background:#FEF9C3;color:#D97706;}
+  .b-not_met{background:#FEE2E2;color:#DC2626;}
+  .b-na{background:#F3F4F6;color:#9CA3AF;}
+  .b-critical{background:#FEE2E2;color:#DC2626;}
+  .b-high{background:#FEF9C3;color:#D97706;}
+  .b-medium{background:#DCFCE7;color:#16A34A;}
+  .gap-card{border-radius:6px;padding:12px;margin-bottom:8px;}
+  .gap-not_met{background:#FFF1F2;border:1px solid #FECDD3;}
+  .gap-partial{background:#FFFBEB;border:1px solid #FDE68A;}
+  .qblock{margin-bottom:14px;}
+  .qblock-title{font-weight:600;color:#374151;font-size:11px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #E5E7EB;}
+  .qrow{display:flex;gap:8px;align-items:flex-start;padding:4px 0;font-size:11px;border-bottom:1px solid #F9FAFB;}
+  .footer{background:#F9FAFB;padding:16px 48px;text-align:center;font-size:10px;color:#9CA3AF;}
+  @media print{.section{break-inside:avoid;page-break-inside:avoid;}}
+</style></head><body>
+<div class="cover">
+  <div style="font-size:11px;opacity:.6;margin-bottom:20px;letter-spacing:1px;">CYBERNAV PRO &mdash; CONFIDENTIAL</div>
+  <h1>SC Cyber Risk Guidelines<br>Self-Audit Report</h1>
+  <div class="sub">Securities Commission Malaysia &mdash; SC-GL/2-2016</div>
+  <div class="meta">
+    <div><div class="meta-label">Organisation</div><div class="meta-val">${profile.orgName}</div></div>
+    <div><div class="meta-label">Assessor</div><div class="meta-val">${profile.assessor}</div></div>
+    <div><div class="meta-label">Report Date</div><div class="meta-val">${date}</div></div>
+  </div>
+</div>
+<div class="section">
+  <h2>Executive Summary</h2>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="lbl">Overall Compliance Score</div><div class="val" style="color:${scoreColor}">${score}%</div><div class="sub">${score>=80?"Strong compliance":score>=60?"Partial compliance — gaps identified":"Significant gaps — immediate action required"}</div></div>
+    <div class="kpi"><div class="lbl">Comply</div><div class="val" style="color:#16A34A">${metCount}</div><div class="sub">of ${GTRM_CONTROLS.length} controls</div></div>
+    <div class="kpi"><div class="lbl">Partially Comply</div><div class="val" style="color:#D97706">${partCount}</div><div class="sub">require improvement</div></div>
+    <div class="kpi"><div class="lbl">Not Comply</div><div class="val" style="color:#DC2626">${notMetCount}</div><div class="sub">critical gaps to address</div></div>
+  </div>
+</div>
+<div class="section">
+  <h2>Control-by-Control Assessment Results</h2>
+  <table>
+    <thead><tr><th>Code</th><th>Control Name</th><th>Section</th><th>Criticality</th><th>Status</th><th>Assessor Notes</th></tr></thead>
+    <tbody>${controls.map(c=>`
+      <tr>
+        <td style="font-weight:600;color:#7C3AED;white-space:nowrap;">${c.code}</td>
+        <td>${c.name}</td>
+        <td style="color:#6B7280;font-size:10px;white-space:nowrap;">${c.section}</td>
+        <td><span class="badge b-${c.criticality}">${c.criticality.charAt(0).toUpperCase()+c.criticality.slice(1)}</span></td>
+        <td><span class="badge b-${c.status||"na"}">${c.status==="met"?"Comply":c.status==="partial"?"Partial":c.status==="not_met"?"Not Comply":"Not Assessed"}</span></td>
+        <td style="font-size:10px;color:#6B7280;">${c.resp.notes||"&mdash;"}</td>
+      </tr>`).join("")}
+    </tbody>
+  </table>
+</div>
+${gaps.length>0?`<div class="section">
+  <h2>Gap Analysis &amp; Remediation Priorities</h2>
+  <p style="color:#6B7280;margin:0 0 14px;font-size:11px;">Controls requiring attention, sorted by criticality. Address critical gaps first to mitigate the highest regulatory exposure.</p>
+  ${gaps.map(c=>`<div class="gap-card gap-${c.status}">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+      <span style="font-weight:600;color:#7C3AED;font-size:11px;">${c.code}</span>
+      <strong style="font-size:12px;">${c.name}</strong>
+      <span class="badge b-${c.criticality}" style="margin-left:auto;">${c.criticality.charAt(0).toUpperCase()+c.criticality.slice(1)}</span>
+      <span class="badge b-${c.status}">${c.status==="partial"?"Partial":"Not Comply"}</span>
+    </div>
+    <div style="font-size:10px;color:#374151;margin-bottom:3px;"><strong>Section:</strong> ${c.section}</div>
+    <div style="font-size:10px;color:#6B7280;margin-bottom:3px;"><strong>Evidence required:</strong> ${c.evidenceHint}</div>
+    ${c.resp.notes?`<div style="font-size:10px;color:#374151;margin-top:5px;"><strong>Notes:</strong> ${c.resp.notes}</div>`:""}
+  </div>`).join("")}
+</div>`:""}
+<div class="section">
+  <h2>Detailed Question-Level Responses</h2>
+  ${controls.map(c=>`<div class="qblock">
+    <div class="qblock-title">${c.code} &mdash; ${c.name} <span style="font-weight:400;color:#9CA3AF;">(${c.section})</span>
+      <span class="badge b-${c.status||"na"}" style="margin-left:8px;">${c.status==="met"?"Comply":c.status==="partial"?"Partial":c.status==="not_met"?"Not Comply":"Not Assessed"}</span>
+    </div>
+    ${c.questions.map((q,qi)=>{const ans=(c.resp.answers||{})[q.id];return`<div class="qrow">
+      <span class="badge b-${ans==="yes"?"met":ans==="no"?"not_met":ans==="partial"?"partial":"na"}" style="flex-shrink:0;min-width:48px;text-align:center;">${ans==="yes"?"Yes":ans==="no"?"No":ans==="partial"?"Partial":"&mdash;"}</span>
+      <span style="color:#374151;">Q${qi+1}. ${q.text}</span>
+    </div>`;}).join("")}
+  </div>`).join("")}
+</div>
+<div class="footer">
+  <div style="margin-bottom:3px;font-weight:600;">Cybernav Pro &mdash; SC GTRM Self-Audit Report</div>
+  <div>Generated: ${date} &nbsp;&bull;&nbsp; ${profile.orgName} &nbsp;&bull;&nbsp; Assessed by: ${profile.assessor}</div>
+  <div style="margin-top:4px;">This report is confidential and intended for internal compliance use only. Based on SC-GL/2-2016 (Securities Commission Malaysia Guidelines on Cyber Security).</div>
+</div>
+<script>window.onload=function(){window.print();}</script>
+</body></html>`;
+  const w=window.open("","_blank");
+  if(w){w.document.write(html);w.document.close();}
+}
 
 // ── DYNAMIC CONTROL INSIGHTS (per score band) ─────────────────────
 const CONTROL_INSIGHTS = {
@@ -932,7 +1189,11 @@ function ComplianceSelectScreen({profile,onSelect,onBack}){
               <div style={{color:"#D1D5DB",fontSize:11,fontWeight:500,marginBottom:4}}>{mod.full}</div>
               <div style={{color:"#9CA3AF",fontSize:11,lineHeight:1.5,marginBottom:12}}>{mod.desc}</div>
               <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                <span style={{fontSize:10,color:"#6B7280"}}>{mod.requirements.length} requirements loaded</span>
+                <span style={{fontSize:10,color:"#6B7280"}}>
+                  {mod.questionnaire
+                    ?<>🗒️ <span style={{color:"#C4B5FD"}}>{GTRM_CONTROLS.length} controls</span> · Questionnaire model</>
+                    :`${mod.requirements.length} requirements loaded`}
+                </span>
                 <span style={{fontSize:11,color:mod.color,fontWeight:500}}>Start Assessment →</span>
               </div>
             </button>
@@ -1123,6 +1384,327 @@ function ComplianceDashboardScreen({profile,mod,compResp,onBack,onAssess}){
   );
 }
 
+// ── GTRM FILE ZONE ────────────────────────────────────────────────
+function GtrmFileZone({onParsed}){
+  const [drag,setDrag]=useState(false); const [parsing,setParsing]=useState(false); const ref=useRef();
+  const handle=useCallback(files=>{
+    setParsing(true);
+    setTimeout(()=>{Array.from(files).forEach(f=>onParsed(f,simulateGtrmDocParse(f.name)));setParsing(false);},1200);
+  },[onParsed]);
+  return(
+    <div onDragOver={e=>{e.preventDefault();setDrag(true);}} onDragLeave={()=>setDrag(false)}
+      onDrop={e=>{e.preventDefault();setDrag(false);handle(e.dataTransfer.files);}} onClick={()=>ref.current?.click()}
+      style={{border:`2px dashed ${drag?"#7C3AED":"#4B5563"}`,borderRadius:8,padding:"10px",textAlign:"center",cursor:"pointer",background:drag?"rgba(124,58,237,.1)":"transparent",transition:"all .15s"}}>
+      <input ref={ref} type="file" multiple accept=".pdf,.docx,.xlsx,.txt" style={{display:"none"}} onChange={e=>handle(e.target.files)}/>
+      {parsing?<div style={{color:"#FCD34D",fontSize:11}}>⏳ AI analysing document…</div>
+        :<><div style={{fontSize:18}}>📄</div><div style={{color:"#6B7280",fontSize:10}}>Drop evidence files for AI-assisted assessment</div><div style={{color:"#4B5563",fontSize:10}}>PDF · DOCX · XLSX · TXT</div></>}
+    </div>
+  );
+}
+
+// ── GTRM ASSESS SCREEN ────────────────────────────────────────────
+function GtrmAssessScreen({profile, gtrmResp, setGtrmResp, onDashboard, onBack}){
+  const [activeId,setActiveId]=useState(GTRM_CONTROLS[0].id);
+  const answeredCount=GTRM_CONTROLS.filter(c=>{
+    const r=gtrmResp[c.id]; if(!r?.answers) return false;
+    return c.questions.every(q=>r.answers[q.id]);
+  }).length;
+  const pct=Math.round((answeredCount/GTRM_CONTROLS.length)*100);
+  const setAnswer=(controlId,qId,val)=>setGtrmResp(p=>({...p,[controlId]:{...(p[controlId]||{}),answers:{...((p[controlId]||{}).answers||{}),[qId]:val}}}));
+  const setOverride=(controlId,val)=>setGtrmResp(p=>({...p,[controlId]:{...(p[controlId]||{}),override:val||null}}));
+  const setNotes=(controlId,val)=>setGtrmResp(p=>({...p,[controlId]:{...(p[controlId]||{}),notes:val}}));
+  const addDoc=(controlId,file,result)=>setGtrmResp(p=>{const prev=p[controlId]||{};const docs=[...(prev.docs||[]),{name:file.name,...result}];return{...p,[controlId]:{...prev,docs}};});
+  const statusBg={"met":"#16A34A","partial":"#D97706","not_met":"#DC2626"};
+  const statusLabel={"met":"✅ Comply","partial":"⚠️ Partial","not_met":"❌ Not Comply"};
+  const parts=[...new Set(GTRM_CONTROLS.map(c=>c.part))];
+  return(
+    <div style={{background:"#0D0505",minHeight:"100vh",display:"flex",flexDirection:"column"}}>
+      <div style={{background:"linear-gradient(90deg,#5B21B6,#7C3AED)",padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <button onClick={onBack} style={{color:"rgba(255,255,255,.8)",background:"none",border:"none",cursor:"pointer",fontSize:13}}>← Back</button>
+          <div>
+            <div style={{color:"white",fontWeight:"bold",fontSize:14}}>📈 SC GTRM — Cyber Security Self-Audit</div>
+            <div style={{color:"rgba(255,255,255,.7)",fontSize:11}}>{profile.orgName} · {answeredCount}/{GTRM_CONTROLS.length} controls completed · {pct}%</div>
+          </div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <div style={{textAlign:"right"}}>
+            <div style={{color:"white",fontSize:16,fontWeight:"bold"}}>{gtrmOverallScore(gtrmResp)}%</div>
+            <div style={{color:"rgba(255,255,255,.7)",fontSize:10}}>Compliance Score</div>
+          </div>
+          <button onClick={onDashboard} style={{background:"rgba(0,0,0,.3)",color:"white",border:"1px solid rgba(255,255,255,.3)",borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,fontWeight:600}}>View Report →</button>
+        </div>
+      </div>
+      <div style={{display:"flex",flex:1,overflow:"hidden"}}>
+        {/* Sidebar */}
+        <div style={{width:230,borderRight:"1px solid #1F2937",padding:"10px 8px",overflowY:"auto",flexShrink:0}}>
+          {parts.map(part=>(
+            <div key={part}>
+              <div style={{color:"#4B5563",fontSize:9,padding:"8px 4px 4px",fontWeight:600,textTransform:"uppercase",letterSpacing:1}}>{part}</div>
+              {GTRM_CONTROLS.filter(c=>c.part===part).map(c=>{
+                const status=getGtrmCompliance(c,gtrmResp[c.id]);
+                const dotColor=status?statusBg[status]:"#374151";
+                return(
+                  <button key={c.id} onClick={()=>setActiveId(c.id)}
+                    style={{width:"100%",display:"flex",alignItems:"center",gap:6,padding:"6px 8px",borderRadius:6,border:"none",background:activeId===c.id?"rgba(124,58,237,.2)":"transparent",cursor:"pointer",textAlign:"left",marginBottom:2}}>
+                    <span style={{width:6,height:6,borderRadius:"50%",background:dotColor,display:"inline-block",flexShrink:0}}/>
+                    <span style={{color:"#6B7280",fontSize:10,flexShrink:0,fontWeight:600}}>{c.code}</span>
+                    <span style={{color:activeId===c.id?"white":"#9CA3AF",fontSize:10,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        {/* Main */}
+        <div style={{flex:1,padding:"20px",overflowY:"auto"}}>
+          <div style={{color:"#6B7280",fontSize:11,marginBottom:16}}>Answer each question based on your current state. Upload supporting documents for AI-assisted compliance suggestions. Use Override to manually set the final status, and add notes to capture your reasoning.</div>
+          {GTRM_CONTROLS.map(c=>{
+            const resp=gtrmResp[c.id]||{};
+            const autoStatus=computeGtrmCompliance(c,resp);
+            const finalStatus=getGtrmCompliance(c,resp);
+            const isActive=activeId===c.id;
+            const borderColor=finalStatus?statusBg[finalStatus]:"#374151";
+            const qAnswered=c.questions.filter(q=>(resp.answers||{})[q.id]).length;
+            return(
+              <div key={c.id} id={`ctrl-${c.id}`} style={{background:"rgba(17,24,39,.7)",border:`1px solid ${isActive?borderColor:"#1F2937"}`,borderRadius:10,marginBottom:8,overflow:"hidden"}}>
+                <button onClick={()=>setActiveId(isActive?null:c.id)}
+                  style={{width:"100%",display:"flex",justifyContent:"space-between",alignItems:"center",padding:"12px 16px",background:"transparent",border:"none",cursor:"pointer",textAlign:"left"}}>
+                  <div style={{display:"flex",alignItems:"center",gap:8,flex:1,overflow:"hidden"}}>
+                    <span style={{fontSize:10,padding:"2px 7px",borderRadius:20,background:"rgba(124,58,237,.3)",color:"#C4B5FD",fontWeight:600,flexShrink:0}}>{c.code}</span>
+                    <span style={{color:"white",fontSize:12,fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.name}</span>
+                    <span style={{fontSize:9,padding:"1px 5px",borderRadius:20,background:GTRM_CRIT_COLOR[c.criticality]+"33",color:GTRM_CRIT_COLOR[c.criticality],fontWeight:600,textTransform:"uppercase",flexShrink:0}}>{c.criticality}</span>
+                  </div>
+                  <div style={{display:"flex",alignItems:"center",gap:8,flexShrink:0}}>
+                    {qAnswered>0&&<span style={{fontSize:10,color:"#6B7280"}}>{qAnswered}/{c.questions.length}</span>}
+                    {finalStatus&&<span style={{fontSize:10,padding:"2px 8px",borderRadius:20,background:statusBg[finalStatus]+"33",color:statusBg[finalStatus],fontWeight:600}}>{statusLabel[finalStatus]}</span>}
+                    <span style={{color:"#6B7280",fontSize:11}}>{isActive?"▲":"▼"}</span>
+                  </div>
+                </button>
+                {isActive&&(
+                  <div style={{padding:"0 16px 16px",borderTop:"1px solid #1F2937"}}>
+                    <div style={{display:"flex",gap:16,alignItems:"center",margin:"10px 0 14px",flexWrap:"wrap"}}>
+                      <span style={{color:"#6B7280",fontSize:11}}>Section: <span style={{color:"#C4B5FD",fontWeight:500}}>{c.section}</span></span>
+                      <span style={{color:"#6B7280",fontSize:11}}>{c.part}</span>
+                    </div>
+                    {/* Questions */}
+                    <div style={{marginBottom:14}}>
+                      <div style={{color:"#D1D5DB",fontSize:11,fontWeight:600,marginBottom:8}}>Questionnaire</div>
+                      {c.questions.map((q,qi)=>{
+                        const ans=(resp.answers||{})[q.id];
+                        return(
+                          <div key={q.id} style={{background:"#111827",borderRadius:8,padding:"10px 12px",marginBottom:6}}>
+                            <div style={{color:"#D1D5DB",fontSize:12,lineHeight:1.5,marginBottom:8}}>
+                              <span style={{color:"#4B5563",fontSize:10,marginRight:6}}>Q{qi+1}</span>{q.text}
+                            </div>
+                            <div style={{display:"flex",gap:6}}>
+                              {[["yes","✅ Yes","#16A34A"],["partial","⚠️ Partial","#D97706"],["no","❌ No","#DC2626"]].map(([val,lbl,col])=>(
+                                <button key={val} onClick={()=>setAnswer(c.id,q.id,val)}
+                                  style={{padding:"4px 12px",borderRadius:6,border:`1px solid ${ans===val?col:"#374151"}`,background:ans===val?col+"33":"transparent",color:ans===val?col:"#6B7280",fontSize:11,cursor:"pointer",fontWeight:ans===val?600:400}}>
+                                  {lbl}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {/* Auto status indicator */}
+                    {autoStatus&&(
+                      <div style={{background:"rgba(31,41,55,.6)",borderRadius:8,padding:"8px 12px",marginBottom:12,display:"flex",alignItems:"center",gap:8}}>
+                        <span style={{color:"#6B7280",fontSize:11}}>Auto-computed:</span>
+                        <span style={{fontSize:11,padding:"2px 8px",borderRadius:20,background:statusBg[autoStatus]+"33",color:statusBg[autoStatus],fontWeight:600}}>{statusLabel[autoStatus]}</span>
+                        <span style={{color:"#4B5563",fontSize:10}}>based on your answers above</span>
+                      </div>
+                    )}
+                    {/* Doc upload + override */}
+                    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:12}}>
+                      <div>
+                        <div style={{color:"#D1D5DB",fontSize:11,fontWeight:600,marginBottom:4}}>📂 Upload Evidence Documents</div>
+                        <div style={{color:"#6B7280",fontSize:10,marginBottom:6,lineHeight:1.4}}>{c.evidenceHint}</div>
+                        <GtrmFileZone onParsed={(f,r)=>addDoc(c.id,f,r)}/>
+                        {(resp.docs||[]).map((d,i)=>(
+                          <div key={i} style={{display:"flex",alignItems:"center",gap:6,background:"rgba(31,41,55,.6)",borderRadius:6,padding:"4px 8px",marginTop:4}}>
+                            <span style={{color:"#D1D5DB",fontSize:10,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>📄 {d.name}</span>
+                            <span style={{fontSize:9,padding:"1px 6px",borderRadius:20,background:statusBg[d.status]+"33",color:statusBg[d.status],fontWeight:600}}>
+                              {d.status==="met"?"Comply":d.status==="partial"?"Partial":"Not Comply"}
+                            </span>
+                          </div>
+                        ))}
+                        {(resp.docs||[]).length>0&&<div style={{color:"#4B5563",fontSize:9,marginTop:4}}>* AI rating based on keyword analysis. Full semantic AI available in hosted version.</div>}
+                      </div>
+                      <div>
+                        <div style={{color:"#D1D5DB",fontSize:11,fontWeight:600,marginBottom:4}}>🔧 Override Compliance Status</div>
+                        <div style={{color:"#6B7280",fontSize:10,marginBottom:8,lineHeight:1.4}}>Optionally override the auto-computed status with your professional judgement.</div>
+                        {[["met","✅ Comply"],["partial","⚠️ Partially Comply"],["not_met","❌ Not Comply"]].map(([val,lbl])=>(
+                          <button key={val} onClick={()=>setOverride(c.id,resp.override===val?"":val)}
+                            style={{display:"block",width:"100%",padding:"5px 10px",borderRadius:6,border:`1px solid ${resp.override===val?statusBg[val]:"#374151"}`,background:resp.override===val?statusBg[val]+"33":"transparent",color:resp.override===val?statusBg[val]:"#9CA3AF",fontSize:11,cursor:"pointer",textAlign:"left",marginBottom:4,fontWeight:resp.override===val?600:400}}>
+                            {lbl}
+                          </button>
+                        ))}
+                        {resp.override&&<button onClick={()=>setOverride(c.id,"")} style={{display:"block",width:"100%",padding:"4px 10px",borderRadius:6,border:"1px solid #374151",background:"transparent",color:"#4B5563",fontSize:10,cursor:"pointer",textAlign:"left",marginTop:2}}>Clear Override</button>}
+                      </div>
+                    </div>
+                    {/* Notes */}
+                    <div>
+                      <div style={{color:"#D1D5DB",fontSize:11,fontWeight:600,marginBottom:4}}>📝 Assessor Notes / Reasoning</div>
+                      <textarea value={resp.notes||""} onChange={e=>setNotes(c.id,e.target.value)}
+                        placeholder="Add notes on evidence reviewed, gaps identified, or planned remediation actions…"
+                        style={{width:"100%",background:"#111827",border:"1px solid #374151",borderRadius:8,padding:"8px 10px",color:"white",fontSize:11,outline:"none",resize:"vertical",minHeight:60,boxSizing:"border-box",fontFamily:"inherit",lineHeight:1.5}}/>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── GTRM DASHBOARD SCREEN ─────────────────────────────────────────
+function GtrmDashboardScreen({profile, gtrmResp, onBack, onAssess}){
+  const score=gtrmOverallScore(gtrmResp);
+  const scoreColor=score>=80?"#16A34A":score>=60?"#D97706":"#DC2626";
+  const scoreLabel=score>=80?"Strong Compliance":score>=60?"Partial Compliance — Gaps Identified":"Significant Gaps — Immediate Action Required";
+  const controls=GTRM_CONTROLS.map(c=>({...c,status:getGtrmCompliance(c,gtrmResp[c.id]),resp:gtrmResp[c.id]||{}}));
+  const metCount=controls.filter(c=>c.status==="met").length;
+  const partCount=controls.filter(c=>c.status==="partial").length;
+  const notMetCount=controls.filter(c=>c.status==="not_met").length;
+  const gaps=controls.filter(c=>c.status==="not_met"||c.status==="partial").sort((a,b)=>GTRM_CRIT_WEIGHT[b.criticality]-GTRM_CRIT_WEIGHT[a.criticality]);
+  const criticalGaps=gaps.filter(c=>c.criticality==="critical");
+  const highGaps=gaps.filter(c=>c.criticality==="high");
+  const statusBg={"met":"#16A34A","partial":"#D97706","not_met":"#DC2626"};
+  const statusLabel={"met":"✅ Comply","partial":"⚠️ Partial","not_met":"❌ Not Comply"};
+  const parts=[...new Set(GTRM_CONTROLS.map(c=>c.part))];
+  return(
+    <div style={{background:"#0D0505",minHeight:"100vh"}}>
+      <div style={{background:"linear-gradient(90deg,#5B21B6,#7C3AED)",padding:"12px 20px",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+        <div style={{display:"flex",alignItems:"center",gap:12}}>
+          <button onClick={onBack} style={{color:"rgba(255,255,255,.8)",background:"none",border:"none",cursor:"pointer",fontSize:13}}>← Back</button>
+          <div>
+            <div style={{color:"white",fontWeight:"bold",fontSize:14}}>📈 SC GTRM Compliance Report</div>
+            <div style={{color:"rgba(255,255,255,.7)",fontSize:11}}>{profile.orgName} · Securities Commission Malaysia · SC-GL/2-2016</div>
+          </div>
+        </div>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <button onClick={onAssess} style={{background:"rgba(0,0,0,.3)",color:"white",border:"1px solid rgba(255,255,255,.3)",borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12}}>← Edit Responses</button>
+          <button onClick={()=>generateGtrmReport(profile,gtrmResp)}
+            style={{background:"white",color:"#7C3AED",borderRadius:8,padding:"8px 14px",cursor:"pointer",fontSize:12,fontWeight:700,border:"none"}}>
+            ⬇ Download PDF Report
+          </button>
+        </div>
+      </div>
+      <div style={{padding:"24px",maxWidth:960,margin:"0 auto"}}>
+        {/* KPI Cards */}
+        <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:12,marginBottom:20}}>
+          {[
+            {label:"Compliance Score",val:`${score}%`,sub:scoreLabel,color:scoreColor},
+            {label:"✅ Comply",val:metCount,sub:`of ${GTRM_CONTROLS.length} controls`,color:"#4ADE80"},
+            {label:"⚠️ Partially Comply",val:partCount,sub:"require improvement",color:"#FCD34D"},
+            {label:"❌ Not Comply",val:notMetCount,sub:"critical gaps",color:"#F87171"},
+          ].map((k,i)=>(
+            <div key={i} style={{background:"rgba(17,24,39,.7)",border:"1px solid #1F2937",borderRadius:10,padding:"14px"}}>
+              <div style={{color:"#9CA3AF",fontSize:11,marginBottom:4}}>{k.label}</div>
+              <div style={{fontSize:22,fontWeight:"bold",color:k.color}}>{k.val}</div>
+              <div style={{color:"#6B7280",fontSize:10,marginTop:2}}>{k.sub}</div>
+            </div>
+          ))}
+        </div>
+        {/* Priority gap callouts */}
+        {(criticalGaps.length>0||highGaps.length>0)&&(
+          <div style={{background:"rgba(17,24,39,.7)",border:"1px solid #1F2937",borderRadius:10,padding:"16px",marginBottom:16}}>
+            <div style={{color:"white",fontSize:13,fontWeight:600,marginBottom:12}}>🚨 Priority Gaps by Criticality</div>
+            <div style={{display:"grid",gridTemplateColumns:criticalGaps.length>0&&highGaps.length>0?"1fr 1fr":"1fr",gap:12}}>
+              {criticalGaps.length>0&&(
+                <div style={{background:"rgba(220,38,38,.08)",border:"1px solid rgba(220,38,38,.3)",borderRadius:8,padding:"12px"}}>
+                  <div style={{color:"#F87171",fontSize:11,fontWeight:600,marginBottom:8}}>🔴 Critical — Immediate Action Required</div>
+                  {criticalGaps.map(c=>(
+                    <div key={c.id} style={{fontSize:11,padding:"4px 0",borderBottom:"1px solid rgba(220,38,38,.15)"}}>
+                      <span style={{color:"#F87171",fontWeight:600}}>{c.code}</span>
+                      <span style={{color:"#FCA5A5",marginLeft:6}}>{c.name}</span>
+                      <span style={{float:"right",fontSize:10,color:statusBg[c.status],fontWeight:600}}>{statusLabel[c.status]}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {highGaps.length>0&&(
+                <div style={{background:"rgba(217,119,6,.08)",border:"1px solid rgba(217,119,6,.3)",borderRadius:8,padding:"12px"}}>
+                  <div style={{color:"#FCD34D",fontSize:11,fontWeight:600,marginBottom:8}}>🟡 High Priority — Address Soon</div>
+                  {highGaps.map(c=>(
+                    <div key={c.id} style={{fontSize:11,padding:"4px 0",borderBottom:"1px solid rgba(217,119,6,.15)"}}>
+                      <span style={{color:"#FCD34D",fontWeight:600}}>{c.code}</span>
+                      <span style={{color:"#FDE68A",marginLeft:6}}>{c.name}</span>
+                      <span style={{float:"right",fontSize:10,color:statusBg[c.status],fontWeight:600}}>{statusLabel[c.status]}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {/* Control status table */}
+        <div style={{background:"rgba(17,24,39,.7)",border:"1px solid #1F2937",borderRadius:10,padding:"16px",marginBottom:16}}>
+          <div style={{color:"white",fontSize:13,fontWeight:600,marginBottom:12}}>Control Status Overview</div>
+          {parts.map(part=>(
+            <div key={part} style={{marginBottom:14}}>
+              <div style={{color:"#4B5563",fontSize:9,fontWeight:600,textTransform:"uppercase",letterSpacing:1,marginBottom:6}}>{part}</div>
+              {controls.filter(c=>c.part===part).map(c=>{
+                const bg=c.status==="met"?"#16A34A":c.status==="partial"?"#D97706":c.status==="not_met"?"#DC2626":"#374151";
+                const pct=c.status==="met"?100:c.status==="partial"?50:0;
+                return(
+                  <div key={c.id} style={{display:"flex",alignItems:"center",gap:10,marginBottom:6}}>
+                    <span style={{color:"#C4B5FD",fontSize:10,width:36,flexShrink:0,fontWeight:600}}>{c.code}</span>
+                    <span style={{color:"#D1D5DB",fontSize:11,flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{c.name}</span>
+                    <span style={{fontSize:9,padding:"1px 5px",borderRadius:20,background:GTRM_CRIT_COLOR[c.criticality]+"33",color:GTRM_CRIT_COLOR[c.criticality],fontWeight:600,flexShrink:0}}>{c.criticality}</span>
+                    <div style={{width:100,height:14,background:"#111827",borderRadius:20,overflow:"hidden",flexShrink:0}}>
+                      <div style={{height:14,background:bg,width:`${pct}%`,borderRadius:20}}/>
+                    </div>
+                    <span style={{color:bg,fontSize:10,width:72,textAlign:"right",flexShrink:0}}>
+                      {c.status==="met"?"✅ Comply":c.status==="partial"?"⚠️ Partial":c.status==="not_met"?"❌ Not Comply":"— N/A"}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        {/* Gap detail */}
+        {gaps.length>0&&(
+          <div style={{background:"rgba(17,24,39,.7)",border:"1px solid #1F2937",borderRadius:10,padding:"16px"}}>
+            <div style={{color:"white",fontSize:13,fontWeight:600,marginBottom:4}}>Gap Remediation Priorities</div>
+            <div style={{color:"#6B7280",fontSize:11,marginBottom:12}}>Sorted by criticality — address critical gaps first to reduce regulatory exposure</div>
+            {gaps.map(c=>{
+              const borderCol=c.status==="not_met"?"rgba(220,38,38,.4)":"rgba(217,119,6,.4)";
+              return(
+                <div key={c.id} style={{background:"rgba(31,41,55,.6)",border:`1px solid ${borderCol}`,borderRadius:8,padding:"12px",marginBottom:8}}>
+                  <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:6,flexWrap:"wrap"}}>
+                    <span style={{fontSize:10,padding:"2px 7px",borderRadius:20,background:"rgba(124,58,237,.3)",color:"#C4B5FD",fontWeight:600}}>{c.code}</span>
+                    <span style={{color:"white",fontSize:12,fontWeight:500}}>{c.name}</span>
+                    <span style={{fontSize:9,padding:"1px 5px",borderRadius:20,background:GTRM_CRIT_COLOR[c.criticality]+"33",color:GTRM_CRIT_COLOR[c.criticality],fontWeight:600,textTransform:"uppercase"}}>{c.criticality}</span>
+                    <span style={{marginLeft:"auto",fontSize:10,color:statusBg[c.status],fontWeight:600}}>{statusLabel[c.status]}</span>
+                  </div>
+                  <div style={{color:"#9CA3AF",fontSize:11,marginBottom:3}}><span style={{color:"#6B7280"}}>Section:</span> {c.section}</div>
+                  <div style={{color:"#9CA3AF",fontSize:11}}><span style={{color:"#6B7280"}}>Evidence required:</span> {c.evidenceHint}</div>
+                  {c.resp.notes&&<div style={{color:"#D1D5DB",fontSize:11,marginTop:6,fontStyle:"italic"}}>Notes: {c.resp.notes}</div>}
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {gaps.length===0&&metCount>0&&(
+          <div style={{background:"rgba(22,163,74,.1)",border:"1px solid rgba(22,163,74,.3)",borderRadius:10,padding:"20px",textAlign:"center"}}>
+            <div style={{fontSize:32,marginBottom:8}}>🎉</div>
+            <div style={{color:"#4ADE80",fontSize:14,fontWeight:600}}>Full Compliance Achieved</div>
+            <div style={{color:"#6B7280",fontSize:12,marginTop:4}}>All assessed controls are marked as Comply. Download the PDF report to document your compliance posture.</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── APP ───────────────────────────────────────────────────────────
 export default function App(){
   const [screen,setScreen]=useState("home");
@@ -1132,6 +1714,7 @@ export default function App(){
   const [crqResp,setCrqResp]=useState({});
   const [compModule,setCompModule]=useState(null);
   const [compResp,setCompResp]=useState({});
+  const [gtrmResp,setGtrmResp]=useState({});
 
   if(screen==="home")          return <HomeScreen onSelect={cat=>{setCategory(cat);setScreen("profile");}}/>;
   if(screen==="profile")       return <ProfileScreen category={category} onSubmit={p=>{setProfile(p);setScreen(category==="governance"?"cma":"compliance-select");}} onBack={()=>setScreen("home")}/>;
@@ -1139,8 +1722,10 @@ export default function App(){
   if(screen==="crq")           return <CRQScreen profile={profile} crqResp={crqResp} setCrqResp={setCrqResp} onNext={()=>setScreen("dashboard")} onBack={()=>setScreen("cma")}/>;
   if(screen==="dashboard")     return <Dashboard profile={profile} cmaResp={cmaResp} crqResp={crqResp} onRoadmap={()=>setScreen("roadmap")} onBack={()=>setScreen("crq")}/>;
   if(screen==="roadmap")       return <RoadmapScreen profile={profile} cmaResp={cmaResp} onBack={()=>setScreen("dashboard")}/>;
-  if(screen==="compliance-select") return <ComplianceSelectScreen profile={profile} onSelect={mod=>{setCompModule(mod);setScreen("compliance-assess");}} onBack={()=>setScreen("profile")}/>;
+  if(screen==="compliance-select") return <ComplianceSelectScreen profile={profile} onSelect={mod=>{setCompModule(mod);setScreen(mod==="sc-gtrm"?"gtrm-assess":"compliance-assess");}} onBack={()=>setScreen("profile")}/>;
   if(screen==="compliance-assess") return <ComplianceAssessScreen profile={profile} mod={compModule} compResp={compResp} setCompResp={setCompResp} onDashboard={()=>setScreen("compliance-report")} onBack={()=>setScreen("compliance-select")}/>;
   if(screen==="compliance-report") return <ComplianceDashboardScreen profile={profile} mod={compModule} compResp={compResp} onBack={()=>setScreen("compliance-select")} onAssess={()=>setScreen("compliance-assess")}/>;
+  if(screen==="gtrm-assess")   return <GtrmAssessScreen profile={profile} gtrmResp={gtrmResp} setGtrmResp={setGtrmResp} onDashboard={()=>setScreen("gtrm-report")} onBack={()=>setScreen("compliance-select")}/>;
+  if(screen==="gtrm-report")   return <GtrmDashboardScreen profile={profile} gtrmResp={gtrmResp} onBack={()=>setScreen("compliance-select")} onAssess={()=>setScreen("gtrm-assess")}/>;
   return null;
 }
